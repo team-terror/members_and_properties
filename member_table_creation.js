@@ -20,5 +20,5 @@ function createUserTable (tableName) {
 	connection.query(query, function (err, result) {
 		if (err) throw err;
 		console.log("Table created");
-	  });
-});
+	 });
+};
