@@ -1,0 +1,23 @@
+{
+  "name": "members_and_properties",
+  "version": "1.0.0",
+  "description": "The members and properties associated with team terror's terrorible airbnb",
+  "main": "create-property.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-terror/members_and_properties.git"
+  },
+  "keywords": [
+    "team",
+    "terror"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-terror/members_and_properties/issues"
+  },
+  "homepage": "https://github.com/team-terror/members_and_properties#readme"
+}
