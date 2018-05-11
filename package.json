@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/team-terror/members_and_properties/issues"
   },
-  "homepage": "https://github.com/team-terror/members_and_properties#readme"
+  "homepage": "https://github.com/team-terror/members_and_properties#readme",
+  "dependencies": {
+    "mysql": "^2.15.0"
+  }
 }
