@@ -18,11 +18,8 @@ exports.login = function(event, context, callback) {
             console.error(err);
         }
         if (data.Payload) {
-            var hashed_password = data.Payload.Item.hashed_password;
-            console.info(data.Payload);
+            var hashed_password = JSON.parse(data.Payload).Item.hashed_password;
             bcrypt.compare(event.password, hashed_password, function(err, data) {
-                console.info(event.password);
-                console.info(hashed_password);
                 if (err) {
                     console.error(err);
                 }
