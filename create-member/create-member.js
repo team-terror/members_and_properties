@@ -1,11 +1,24 @@
-
 var AWS = require('aws-sdk'),
-    uuidv1 = require('uuid/v1'),
     bcrypt = require('bcrypt-nodejs'),
 	documentClient = new AWS.DynamoDB.DocumentClient();
 
-exports.writeMovie = function(event, context, callback){
+function parseEvent(event) {
+    if (typeof event.name !== "string"
+        || typeof event.email !== "string"
+        || typeof event.password !== "string") {
+            throw new Error("event field is not a string");
+        }
+    if (event.name.length === 0
+        || event.email.length === 0
+        || event.password.length === 0) {
+            throw new Error("empty strings are not allowed");
+        }
+}
+
+exports.createMember = function(event, context, callback){
+    parseEvent(event);
     var salt;
+
     bcrypt.genSalt(10, function(err, salt) {
         if (err) {
             console.error(err);
@@ -16,9 +29,9 @@ exports.writeMovie = function(event, context, callback){
             }
             var params = {
                 Item : {
-                    "member_id" : uuidv1(),
                     "member_name" : event.name,
                     "member_email": event.email,
+                    "member_join_time": Date.now(),
                     "hashed_password": hash,
                     "salt": salt
                 },
@@ -28,7 +41,7 @@ exports.writeMovie = function(event, context, callback){
                 if (err) {
                     console.error(err);
                 }
-                callback(err, "some success message");
+                callback(err, "member inserted");
             });
         });
     });
