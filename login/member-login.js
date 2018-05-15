@@ -7,8 +7,21 @@ var lambda = new AWS.Lambda({
     region: 'us-west-2'
     });
 
+var ssm = new AWS.SSM();
+var params = {
+    Name: "jwtkey",
+    WithDecryption: true
+}
 
 exports.login = function(event, context, callback) {
+    var jwtkey;
+    ssm.getParameter(params, function(err, data) {
+        if (err) {
+            console.error(err);
+        }
+        jwtkey = data.Parameter.Value;
+    });
+
     lambda.invoke({
         FunctionName: "terrorGetMember",
         Payload: JSON.stringify({
@@ -29,7 +42,7 @@ exports.login = function(event, context, callback) {
                 jwt.sign({
                     email: item.email
                 },
-                "shhhh",
+                jwtkey,
                 function(err, token) {
                     if (err) {
                         console.error(err);
