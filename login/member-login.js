@@ -23,6 +23,7 @@ exports.login = function(event, context, callback) {
                 if (err) {
                     console.error(err);
                 }
+                // TODO: return a JWT or a cookie or something. Who knows?
                 console.info(data);
             });
         }
