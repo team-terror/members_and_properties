@@ -1,5 +1,4 @@
 var AWS = require('aws-sdk'),
-    uuidv1 = require('uuid/v1'),
     bcrypt = require('bcrypt-nodejs'),
 	documentClient = new AWS.DynamoDB.DocumentClient();
 
@@ -30,9 +29,9 @@ exports.createMember = function(event, context, callback){
             }
             var params = {
                 Item : {
-                    "member_id" : uuidv1(),
                     "member_name" : event.name,
                     "member_email": event.email,
+                    "member_join_time": Date.now(),
                     "hashed_password": hash,
                     "salt": salt
                 },
@@ -42,7 +41,7 @@ exports.createMember = function(event, context, callback){
                 if (err) {
                     console.error(err);
                 }
-                callback(err, "some success message");
+                callback(err, "member inserted");
             });
         });
     });
